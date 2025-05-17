@@ -1,0 +1,50 @@
+<%- include('partials/header.ejs') %>
+
+<% if(!locals.post) { %>
+    <p>No post found.</p>
+<% } else { %>
+
+    <h1><%= post.title  %></h1>
+    <hr>
+    <p><%= post.content %></p>
+
+    <hr>
+
+    <!-- Back button -->
+    <a href="/" class="btn btn-primary">Back to Post List</a>
+    <br>
+
+    <!-- Edit form with a button to control dropdown appearance. Prefilled with current post data.-->
+
+    <button class="btn btn-primary dropdown" id="editPostButton ">Edit Post</button>
+
+    <div class="container edit-post-form dropdown">
+        <hr>
+        <form action="/edit-post/<%= post.id %>" method="POST">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required value="<%= post.title %>">
+            </div>
+            <div class="mb-3">
+                <label for="content" class="form-label">Content</label>
+                <textarea class="form-control" id="content" name="content" rows="5" required><%= post.content %></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <p>Please note that any edits will be erased when this website is exited or reloaded, as the assignment specified to NOT include a database.</p>
+        </form>
+        <hr>
+    </div>
+
+    <!-- Delete button -->
+
+    <form action="/delete-post/<%= post.id %>" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?');">
+        <button type="submit" class="btn btn-danger">Delete Post</button>
+    </form>
+
+    
+
+
+<% } %>
+
+
+<%- include('partials/footer.ejs') %>
